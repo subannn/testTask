@@ -52,7 +52,7 @@ func formatToWeek(transactions []*Transaction) []Transaction {
 
 		week1 := transactions[i].Timestamp.Unix() / 604800
 		week2 := transactions[i+1].Timestamp.Unix() / 604800
-
+			
 		if week1 != week2 {
 			ans = append(ans, *transactions[i])
 		}
@@ -64,11 +64,11 @@ func formatToWeek(transactions []*Transaction) []Transaction {
 	for _, val := range ans {
 		weekUNIX := (val.Timestamp.Unix() / 604800) * 604800
 		t := time.Unix(weekUNIX, 0)
-		formated := Transaction{val.Value, t}
+		formated := Transaction{val.Value, t.UTC()}
 		result = append(result, formated)
 	}
 
-	return ans
+	return result
 }
 func formatToDay(transactions []*Transaction) []Transaction {
 	ans := make([]Transaction, 0)

@@ -48,7 +48,8 @@ func main() {
 	res1, _ := solution.FormatTransactions(input, "month")
 	res2, _ := solution.FormatTransactions(input, "week")
 	res3, _ := solution.FormatTransactions(input, "day")
-	res4, _ := solution.FormatTransactions(input, "hour")
+	res4, _ := solution.FormatTransactions(input, "hosur")
+
 
 	fmt.Println(res1)
 	fmt.Println(res2)
