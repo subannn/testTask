@@ -31,25 +31,10 @@ func main() {
 		},
 	}
 
-	// answer := []solution.Transaction{
-	// 	{
-	// 		4456,
-	// 		time.Unix(1616025600, 0).UTC(),
-	// 	},
-	// 	{
-	// 		4231,
-	// 		time.Unix(1615939200, 0).UTC(),
-	// 	},
-	// 	{
-	// 		4321,
-	// 		time.Unix(1615852800, 0).UTC(),
-	// 	},
-	// }
 	res1, _ := solution.FormatTransactions(input, "month")
 	res2, _ := solution.FormatTransactions(input, "week")
 	res3, _ := solution.FormatTransactions(input, "day")
-	res4, _ := solution.FormatTransactions(input, "hosur")
-
+	res4, _ := solution.FormatTransactions(input, "hour")
 
 	fmt.Println(res1)
 	fmt.Println(res2)

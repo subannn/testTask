@@ -1,10 +1,9 @@
 package solution
 
 import (
+	"sort"
 	"testing"
 	"time"
-
-	"sort"
 
 	"github.com/stretchr/testify/assert"
 )

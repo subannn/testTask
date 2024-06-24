@@ -16,6 +16,10 @@ func FormatTransactions(transactions []*Transaction, interval string) ([]Transac
 		return transactions[i].Timestamp.Before(transactions[j].Timestamp)
 	})
 
+	if len(transactions) == 0 {
+		return []Transaction{}, nil
+	}
+
 	if interval == "month" {
 		return formatToMonth(transactions), nil
 	} else if interval == "week" {
@@ -29,7 +33,7 @@ func FormatTransactions(transactions []*Transaction, interval string) ([]Transac
 	return nil, errors.New("Incorrect interval name")
 }
 func formatToMonth(transactions []*Transaction) []Transaction {
-	ans := make([]Transaction, 0)
+	var ans []Transaction
 	for i := 0; i < len(transactions)-1; i++ {
 		if transactions[i].Timestamp.Month() != transactions[i+1].Timestamp.Month() {
 			ans = append(ans, *transactions[i])
@@ -38,7 +42,7 @@ func formatToMonth(transactions []*Transaction) []Transaction {
 
 	ans = append(ans, *transactions[len(transactions)-1])
 
-	result := make([]Transaction, 0)
+	var result []Transaction
 	for _, val := range ans {
 		formated := Transaction{val.Value, time.Date(val.Timestamp.Year(), val.Timestamp.Month(), 1, 0, 0, 0, 0, time.UTC)}
 		result = append(result, formated)
@@ -47,12 +51,12 @@ func formatToMonth(transactions []*Transaction) []Transaction {
 	return result
 }
 func formatToWeek(transactions []*Transaction) []Transaction {
-	ans := make([]Transaction, 0)
+	var ans []Transaction
 	for i := 0; i < len(transactions)-1; i++ {
 
 		week1 := transactions[i].Timestamp.Unix() / 604800
 		week2 := transactions[i+1].Timestamp.Unix() / 604800
-			
+
 		if week1 != week2 {
 			ans = append(ans, *transactions[i])
 		}
@@ -60,7 +64,7 @@ func formatToWeek(transactions []*Transaction) []Transaction {
 
 	ans = append(ans, *transactions[len(transactions)-1])
 
-	result := make([]Transaction, 0)
+	var result []Transaction
 	for _, val := range ans {
 		weekUNIX := (val.Timestamp.Unix() / 604800) * 604800
 		t := time.Unix(weekUNIX, 0)
@@ -71,7 +75,7 @@ func formatToWeek(transactions []*Transaction) []Transaction {
 	return result
 }
 func formatToDay(transactions []*Transaction) []Transaction {
-	ans := make([]Transaction, 0)
+	var ans []Transaction
 	for i := 0; i < len(transactions)-1; i++ {
 		if transactions[i].Timestamp.Day() != transactions[i+1].Timestamp.Day() {
 			ans = append(ans, *transactions[i])
@@ -80,7 +84,7 @@ func formatToDay(transactions []*Transaction) []Transaction {
 
 	ans = append(ans, *transactions[len(transactions)-1])
 
-	result := make([]Transaction, 0)
+	var result []Transaction
 	for _, val := range ans {
 		formated := Transaction{val.Value, time.Date(val.Timestamp.Year(), val.Timestamp.Month(), val.Timestamp.Day(), 0, 0, 0, 0, time.UTC)}
 		result = append(result, formated)
@@ -89,7 +93,7 @@ func formatToDay(transactions []*Transaction) []Transaction {
 	return result
 }
 func formatToHour(transactions []*Transaction) []Transaction {
-	ans := make([]Transaction, 0)
+	var ans []Transaction
 	for i := 0; i < len(transactions)-1; i++ {
 		if transactions[i].Timestamp.Hour() != transactions[i+1].Timestamp.Hour() {
 			ans = append(ans, *transactions[i])
@@ -98,7 +102,7 @@ func formatToHour(transactions []*Transaction) []Transaction {
 
 	ans = append(ans, *transactions[len(transactions)-1])
 
-	result := make([]Transaction, 0)
+	var result []Transaction
 	for _, val := range ans {
 		formated := Transaction{val.Value, time.Date(val.Timestamp.Year(), val.Timestamp.Month(), val.Timestamp.Day(), val.Timestamp.Hour(), 0, 0, 0, time.UTC)}
 		result = append(result, formated)
