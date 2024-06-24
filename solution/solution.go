@@ -35,16 +35,17 @@ func FormatTransactions(transactions []*Transaction, interval string) ([]Transac
 func formatToMonth(transactions []*Transaction) []Transaction {
 	var ans []Transaction
 	for i := 0; i < len(transactions)-1; i++ {
-		if transactions[i].Timestamp.Month() != transactions[i+1].Timestamp.Month() {
-			ans = append(ans, *transactions[i])
+		if transactions[i].Timestamp.Month() == transactions[i+1].Timestamp.Month() && transactions[i].Timestamp.Year() == transactions[i+1].Timestamp.Year() {
+			continue
 		}
+		ans = append(ans, *transactions[i])
 	}
 
 	ans = append(ans, *transactions[len(transactions)-1])
 
 	var result []Transaction
 	for _, val := range ans {
-		formated := Transaction{val.Value, time.Date(val.Timestamp.Year(), val.Timestamp.Month(), 1, 0, 0, 0, 0, time.UTC)}
+		formated := Transaction{val.Value, time.Date(val.Timestamp.Year(), val.Timestamp.Month(), val.Timestamp.Day(), 0, 0, 0, 0, time.UTC)}
 		result = append(result, formated)
 	}
 
@@ -77,9 +78,10 @@ func formatToWeek(transactions []*Transaction) []Transaction {
 func formatToDay(transactions []*Transaction) []Transaction {
 	var ans []Transaction
 	for i := 0; i < len(transactions)-1; i++ {
-		if transactions[i].Timestamp.Day() != transactions[i+1].Timestamp.Day() {
-			ans = append(ans, *transactions[i])
+		if transactions[i].Timestamp.Month() == transactions[i+1].Timestamp.Month() && transactions[i].Timestamp.Year() == transactions[i+1].Timestamp.Year() && transactions[i].Timestamp.Day() == transactions[i+1].Timestamp.Day() {
+			continue
 		}
+		ans = append(ans, *transactions[i])
 	}
 
 	ans = append(ans, *transactions[len(transactions)-1])
@@ -95,9 +97,10 @@ func formatToDay(transactions []*Transaction) []Transaction {
 func formatToHour(transactions []*Transaction) []Transaction {
 	var ans []Transaction
 	for i := 0; i < len(transactions)-1; i++ {
-		if transactions[i].Timestamp.Hour() != transactions[i+1].Timestamp.Hour() {
-			ans = append(ans, *transactions[i])
+		if transactions[i].Timestamp.Month() == transactions[i+1].Timestamp.Month() && transactions[i].Timestamp.Year() == transactions[i+1].Timestamp.Year() && transactions[i].Timestamp.Day() == transactions[i+1].Timestamp.Day() && transactions[i].Timestamp.Hour() == transactions[i+1].Timestamp.Hour() {
+			continue
 		}
+		ans = append(ans, *transactions[i])
 	}
 
 	ans = append(ans, *transactions[len(transactions)-1])

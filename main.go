@@ -31,14 +31,17 @@ func main() {
 		},
 	}
 
-	res1, _ := solution.FormatTransactions(input, "month")
-	res2, _ := solution.FormatTransactions(input, "week")
-	res3, _ := solution.FormatTransactions(input, "day")
+	// res1, _ := solution.FormatTransactions(input, "month")
+	// res2, _ := solution.FormatTransactions(input, "week")
+	// res3, _ := solution.FormatTransactions(input, "day")
 	res4, _ := solution.FormatTransactions(input, "hour")
 
-	fmt.Println(res1)
-	fmt.Println(res2)
-	fmt.Println(res3)
-	fmt.Println(res4)
+	// for _, val := range res1 {
+	// 	fmt.Println(val.Timestamp.Month())
+	// }
 
+	// fmt.Println(res1)
+	// fmt.Println(res2)
+	// fmt.Println(res3)
+	fmt.Println(res4)
 }
